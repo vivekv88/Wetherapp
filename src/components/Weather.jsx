@@ -14,9 +14,11 @@ const Weather = () => {
   const inputRef = useRef()
   const [weatherData,setWeatherData] = useState(false);
 
+  const API_KEY = import.meta.env.VITE_APP_ID;
+
   const search = async (city) => {
     try {
-      const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=c10602b96a464cfa90364911251804&q=${city}&aqi=yes`);
+      const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}&aqi=yes`);
       const data = await response.json();
       console.log(data);
       setWeatherData({
