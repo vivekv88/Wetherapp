@@ -14,6 +14,7 @@
     gap: 20px;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
 }
  
 .search-box input{
@@ -75,4 +76,50 @@
 
 .weather-data .col img{
     width: 26px;
+}
+
+.air-quality-index{
+    font-size: 22px;
+}
+
+.gases{
+    display: flex;
+    gap: 20px;
+    font-weight: 500;
+    color: rgb(174, 108, 236);
+}
+
+@media (max-width:450px) {
+    .weather{
+        width: 77%;
+    }
+
+    .temperature{
+        font-size: 5vw;
+    }
+
+    .location{
+        font-size: 5vw;
+    }
+
+    .weather-data{
+        gap: 10px;
+    }
+
+    .weather-data .col{
+        font-size: 11px;
+        gap: 5px;
+    }
+    .air-quality-index{
+        font-size: 17px;
+    }
+
+    .weather-data .col span{
+        display: block;
+        font-size: 12px;
+    }
+    .weather-data .col p{
+        font-size: 18px;
+    }
+    
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './Weather.css'
 import searchIcon from '../assets/search.png'
 import clearIcon from '../assets/clear.png'
@@ -11,18 +11,23 @@ import windIcon from '../assets/wind.png'
 
 const Weather = () => {
 
+  const inputRef = useRef()
   const [weatherData,setWeatherData] = useState(false);
 
-  const search = async () => {
+  const search = async (city) => {
     try {
-      const response = await fetch("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=relative_humidity_2m,temperature_2m,wind_speed_10m,is_day&timezone=America%2FAnchorage");
+      const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=c10602b96a464cfa90364911251804&q=${city}&aqi=yes`);
       const data = await response.json();
       console.log(data);
       setWeatherData({
-        humidity: data.current?.relative_humidity_2m,
-        windSpeed: data.current?.wind_speed_10m,
-        temperature: data.current?.temperature_2m,
-        location: data.timezone
+        humidity: data.current?.humidity,
+        windSpeed: data.current?.wind_kph,
+        temperature: data.current?.temp_c,
+        location: data.location.name,
+        air_quality_co: data.current.air_quality.co,
+        air_quality_no2: data.current.air_quality.no2,
+        air_quality_o3: data.current.air_quality.o3,
+        air_quality_so2: data.current.air_quality.so2,
       })
 
     } catch (error) {
@@ -31,14 +36,14 @@ const Weather = () => {
   }
 
   useEffect(()=>{
-    search();
+    search("Mumbai");
   },[])
 
   return (
     <div className='weather'>
       <div className="search-box">
-        <input type="text" placeholder='Enter the City...' />
-        <img src={searchIcon} alt="" />
+        <input ref={inputRef} type="text" placeholder='Enter the City...' />
+        <img src={searchIcon} alt="" onClick={()=>search(inputRef.current.value)}/>
       </div>
       <img className='weather-icon' src={clearIcon} alt="" />
       <p className='temperature'>{weatherData.temperature}°c</p>
@@ -54,6 +59,18 @@ const Weather = () => {
           <img src={windIcon} alt="" />
           <p>{weatherData.windSpeed} Km/h</p>
           <span>Wind Speed</span>
+        </div>
+      </div>
+
+      <div className="weather-data">
+        <div className="air-quality-index">
+          <p>Air Quality Index:-</p>
+          <div className="gases">
+            <p>CO: {weatherData.air_quality_co}</p>
+            <p>NO2: {weatherData.air_quality_no2}</p>
+            <p>SO2: {weatherData.air_quality_so2}</p>
+            <p>O3: {weatherData.air_quality_o3}</p>
+          </div>
         </div>
       </div>
     </div>

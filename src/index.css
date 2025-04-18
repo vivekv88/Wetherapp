@@ -13,3 +13,11 @@
   background-image: url("https://cf-img-a-in.tosshub.com/sites/weather/resources/image/bg/clear.jpg?size=910%E2%88%B6431");
   display: grid;
 }
+
+@media (max-width:450px) {
+  .app{
+    height: 100%;
+    width: 100%;
+  }
+ 
+}
