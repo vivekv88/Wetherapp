@@ -18,7 +18,7 @@ const Weather = () => {
 
   const search = async (city) => {
     try {
-      const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}&aqi=yes`);
+      const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}&aqi=yes`);
       const data = await response.json();
       console.log(data);
       setWeatherData({
